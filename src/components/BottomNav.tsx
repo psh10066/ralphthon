@@ -9,30 +9,31 @@ const tabs = [
   { href: "/profile", label: "프로필" },
 ];
 
-export function BottomNav() {
+const hiddenPaths = ["/", "/result", "/chat"];
+
+export default function BottomNav() {
   const pathname = usePathname();
 
-  const hiddenPaths = ["/", "/upload", "/loading-analyze", "/essence"];
-  if (hiddenPaths.includes(pathname)) return null;
+  if (hiddenPaths.some((p) => pathname === p || (p === "/chat" && pathname.startsWith("/chat")))) {
+    return null;
+  }
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] border-t border-structure-line bg-canvas z-50">
-      <div className="flex justify-around py-3">
-        {tabs.map((tab) => {
-          const isActive =
-            pathname === tab.href || pathname.startsWith(tab.href + "/");
-          return (
-            <Link
-              key={tab.href}
-              href={tab.href}
-              className={`text-sm font-sans ${
-                isActive ? "text-ink font-medium" : "text-muted"
-              }`}
-            >
-              {tab.label}
-            </Link>
-          );
-        })}
+    <nav className="fixed bottom-0 left-0 right-0 bg-[#EFEEE9]/90 backdrop-blur-sm border-t border-[#040000]/8 z-50">
+      <div className="max-w-[960px] mx-auto flex">
+        {tabs.map((tab) => (
+          <Link
+            key={tab.label}
+            href={tab.href}
+            className={`flex-1 py-3.5 text-center text-[12px] transition-colors ${
+              pathname === tab.href || pathname.startsWith(tab.href + "/")
+                ? "text-[#040000] font-medium"
+                : "text-[#707980]"
+            }`}
+          >
+            {tab.label}
+          </Link>
+        ))}
       </div>
     </nav>
   );

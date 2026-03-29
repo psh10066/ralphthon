@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
+import { Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
-import { BottomNav } from "@/components/BottomNav";
+
+const notoSerifKR = Noto_Serif_KR({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-serif",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Droppi",
-  description: "drop + I. 뭐든 떨어뜨리면 쌓이고, 쌓이면 내가 보인다.",
+  title: "droppi",
+  description: "뭐든 넣으면 당신이 보입니다",
 };
 
 export default function RootLayout({
@@ -13,10 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className="font-sans antialiased">
-        <main className="pb-16">{children}</main>
-        <BottomNav />
+    <html lang="ko" className={`${notoSerifKR.variable} h-full antialiased`}>
+      <body
+        className="min-h-full flex flex-col"
+        style={{ fontFamily: "'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif" }}
+      >
+        {children}
       </body>
     </html>
   );

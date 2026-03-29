@@ -1,7 +1,0 @@
-{
-  "tool_name": "mcp__playwright__browser_navigate",
-  "tool_input_preview": "{\"url\":\"http://localhost:3000\"}",
-  "error": "### Error\nTimeoutError: page.goto: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"http://localhost:3000/\", waiting until \"domcontentloaded\"\u001b[22m",
-  "timestamp": "2026-03-29T03:24:39.600Z",
-  "retry_count": 1
-}

@@ -55,6 +55,18 @@
       "type": "file"
     },
     {
+      "path": "src/app/layout.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1774767762379,
+      "type": "file"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "accessCount": 4,
+      "lastAccessed": 1774767803142,
+      "type": "file"
+    },
+    {
       "path": "",
       "accessCount": 3,
       "lastAccessed": 1774745686213,
@@ -103,15 +115,15 @@
       "type": "file"
     },
     {
-      "path": "src/app/page.tsx",
+      "path": "docs/engine/dialogue.md",
       "accessCount": 3,
-      "lastAccessed": 1774755294004,
+      "lastAccessed": 1774767663951,
       "type": "file"
     },
     {
-      "path": "src/app/layout.tsx",
+      "path": "src/app/globals.css",
       "accessCount": 3,
-      "lastAccessed": 1774755300964,
+      "lastAccessed": 1774767758194,
       "type": "file"
     },
     {
@@ -151,12 +163,6 @@
       "type": "file"
     },
     {
-      "path": "docs/engine/dialogue.md",
-      "accessCount": 2,
-      "lastAccessed": 1774749496978,
-      "type": "file"
-    },
-    {
       "path": "docs/design/principles.md",
       "accessCount": 2,
       "lastAccessed": 1774752545257,
@@ -190,12 +196,6 @@
       "path": ".npmrc",
       "accessCount": 2,
       "lastAccessed": 1774754071071,
-      "type": "file"
-    },
-    {
-      "path": "src/app/globals.css",
-      "accessCount": 2,
-      "lastAccessed": 1774754082456,
       "type": "file"
     },
     {

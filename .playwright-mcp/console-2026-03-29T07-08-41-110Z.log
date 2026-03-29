@@ -1,0 +1,16 @@
+[     223ms] [WARNING] Image with src "http://localhost:3000/logo-symbol.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/shared/lib/utils/warn-once.js:15
+[   19457ms] [WARNING] Image with src "http://localhost:3000/logo-symbol.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/shared/lib/utils/warn-once.js:15
+[   19726ms] [WARNING] Image with src "http://localhost:3000/logo-symbol.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/shared/lib/utils/warn-once.js:15
+[   19992ms] [WARNING] Image with src "http://localhost:3000/logo-symbol.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ webpack-internal:///(app-pages-browser)/./node_modules/next/dist/shared/lib/utils/warn-once.js:15
+[  103652ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://ralphthon-rose.vercel.app/favicon.ico:0
+[  104879ms] [ERROR] Failed to fetch RSC payload for https://ralphthon-rose.vercel.app/sessions. Falling back to browser navigation. TypeError: Failed to fetch
+    at s (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:45417)
+    at https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:58943
+    at Object.u [as task] (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:31834)
+    at c.s (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:32539)
+    at c.enqueue (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:31964)
+    at s (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:58906)
+    at i (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:58446)
+    at a (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:65235)
+    at f (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:1:75079)
+    at Object.action (https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:2:7082) @ https://ralphthon-rose.vercel.app/_next/static/chunks/117-c264931d1ca5a9b9.js:0
