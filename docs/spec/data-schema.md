@@ -95,6 +95,10 @@ create table theme_clusters (
   label text not null,                 -- "안전한 구석"
   reading_ids uuid[],                  -- 이 주제에 속한 읽기 ID들
   keywords text[],                     -- ["#안전", "#구석"]
+  reading_count integer default 0,     -- 이 주제에 속한 읽기 수
+  conversation_count integer default 0,-- 이 주제에서 대화로 이어진 수
+  ai_summary text,                     -- "가까이 있는 것들에 반복적으로 주목하는 패턴"
+  recent_activity timestamptz,         -- 마지막 읽기/대화 시각
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );
@@ -236,6 +240,10 @@ interface ThemeCluster {
   label: string;
   reading_ids: string[];
   keywords: string[];
+  reading_count: number;
+  conversation_count: number;
+  ai_summary: string;
+  recent_activity: string;
   created_at: string;
   updated_at: string;
 }

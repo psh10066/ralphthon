@@ -85,7 +85,7 @@
 // 입력
 interface ReadingRequest {
   type: 'image' | 'text' | 'link' | 'memo';
-  content: string | string[];  // image는 base64, 나머지는 string
+  content: string | string[];  // image는 base64 array (1장 이상), 나머지는 string
 }
 
 // 출력
