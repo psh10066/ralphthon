@@ -1,0 +1,7 @@
+{
+  "tool_name": "mcp__playwright__browser_navigate",
+  "tool_input_preview": "{\"url\":\"http://localhost:3000/profile\"}",
+  "error": "### Error\nError: browserType.launchPersistentContext: Failed to launch the browser process.\nBrowser logs:\n\n<launching> /Applications/Google Chrome.app/Contents/MacOS/Google Chrome --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-defaul...",
+  "timestamp": "2026-03-29T08:22:33.365Z",
+  "retry_count": 1
+}

@@ -37,21 +37,27 @@
       "type": "file"
     },
     {
+      "path": "src/app/api/chat/route.ts",
+      "accessCount": 12,
+      "lastAccessed": 1774771747448,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 8,
+      "lastAccessed": 1774772285742,
+      "type": "directory"
+    },
+    {
       "path": "docs/setup.md",
-      "accessCount": 6,
-      "lastAccessed": 1774749431241,
+      "accessCount": 7,
+      "lastAccessed": 1774771731949,
       "type": "file"
     },
     {
       "path": "docs/api-reference.md",
       "accessCount": 6,
       "lastAccessed": 1774749431712,
-      "type": "file"
-    },
-    {
-      "path": "src/app/api/chat/route.ts",
-      "accessCount": 4,
-      "lastAccessed": 1774755283333,
       "type": "file"
     },
     {
@@ -67,15 +73,21 @@
       "type": "file"
     },
     {
-      "path": "",
-      "accessCount": 3,
-      "lastAccessed": 1774745686213,
-      "type": "directory"
+      "path": "src/lib/telegram.ts",
+      "accessCount": 4,
+      "lastAccessed": 1774771735756,
+      "type": "file"
     },
     {
       "path": "docs/deeplinks.md",
-      "accessCount": 3,
-      "lastAccessed": 1774749413841,
+      "accessCount": 4,
+      "lastAccessed": 1774771736711,
+      "type": "file"
+    },
+    {
+      "path": "src/app/globals.css",
+      "accessCount": 4,
+      "lastAccessed": 1774772602552,
       "type": "file"
     },
     {
@@ -109,21 +121,9 @@
       "type": "file"
     },
     {
-      "path": "src/lib/telegram.ts",
-      "accessCount": 3,
-      "lastAccessed": 1774755289417,
-      "type": "file"
-    },
-    {
       "path": "docs/engine/dialogue.md",
       "accessCount": 3,
       "lastAccessed": 1774767663951,
-      "type": "file"
-    },
-    {
-      "path": "src/app/globals.css",
-      "accessCount": 3,
-      "lastAccessed": 1774767758194,
       "type": "file"
     },
     {
