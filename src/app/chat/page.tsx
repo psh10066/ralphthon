@@ -221,18 +221,11 @@ function ChatContent() {
                     <p className="text-[15px] mb-2" style={{ fontFamily: "var(--font-serif), serif" }}>
                       &ldquo;{msg.insight.text}&rdquo;
                     </p>
-                    <div className="flex gap-1.5 flex-wrap mb-3">
+                    <div className="flex gap-1.5 flex-wrap">
                       {msg.insight.tags.map((tag) => (
                         <span key={tag} className="text-[11px] text-[#707980] border border-[#040000]/10 rounded-full px-2 py-0.5">{tag}</span>
                       ))}
                     </div>
-                    <button
-                      onClick={() => handleSaveInsight(i)}
-                      disabled={msg.saved}
-                      className={`text-[12px] underline underline-offset-2 ${msg.saved ? "text-[#707980]/40" : "text-[#040000]"}`}
-                    >
-                      {msg.saved ? "저장됨 ✓" : "기록할까요?"}
-                    </button>
                   </div>
                 )}
               </div>
