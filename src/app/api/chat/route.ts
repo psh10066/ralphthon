@@ -66,7 +66,12 @@ async function scrapeUrl(url: string): Promise<string | null> {
 
 export async function POST(request: NextRequest) {
   try {
-    const { input, essence, history } = await request.json();
+    const body = await request.json();
+    const { input, essence, history, insightLog } = body;
+
+    if (!input || !input.content) {
+      return NextResponse.json({ message: "입력이 필요해요.", type: "question", insight: null });
+    }
 
     let processedContent = input.content;
     let linkWarning: string | null = null;
@@ -85,7 +90,7 @@ export async function POST(request: NextRequest) {
       } else {
         try {
           const aiResearch = await anthropic.messages.create({
-            model: "claude-sonnet-4-20250514",
+            model: "claude-opus-4-20250514",
             max_tokens: 500,
             messages: [
               {
@@ -120,6 +125,10 @@ export async function POST(request: NextRequest) {
       ? `\n\n## 사용자 에센스 프로필\n${JSON.stringify(essence, null, 2)}`
       : "";
 
+    const insightContext = insightLog && insightLog.length > 0
+      ? `\n\n## 이전 대화에서 축적된 발견\n${JSON.stringify(insightLog, null, 2)}\n\n이전 발견과 연결되는 부분이 있으면 자연스럽게 언급해주세요.`
+      : "";
+
     const messages = [
       ...(history || []).map((h: any) => ({
         role: h.role as "user" | "assistant",
@@ -132,10 +141,10 @@ export async function POST(request: NextRequest) {
     ];
 
     const response = await anthropic.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-opus-4-20250514",
       max_tokens: 1000,
       temperature: 0.7,
-      system: DIALOGUE_SYSTEM_PROMPT + essenceContext,
+      system: DIALOGUE_SYSTEM_PROMPT + essenceContext + insightContext,
       messages,
     });
 
