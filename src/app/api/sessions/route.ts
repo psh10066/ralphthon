@@ -1,48 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  try {
-    const userId = request.nextUrl.searchParams.get("userId");
-    if (!userId) {
-      return NextResponse.json({ error: "userId required" }, { status: 400 });
-    }
-
-    const { data: sessions, error } = await supabase
-      .from("sessions")
-      .select("*")
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false });
-
-    if (error) throw error;
-
-    const sessionsWithInsights = await Promise.all(
-      (sessions || []).map(async (session: any) => {
-        const { count } = await supabase
-          .from("insights")
-          .select("*", { count: "exact", head: true })
-          .eq("session_id", session.id);
-
-        const { data: topInsight } = await supabase
-          .from("insights")
-          .select("text")
-          .eq("session_id", session.id)
-          .limit(1)
-          .single();
-
-        return {
-          id: session.id,
-          date: session.created_at,
-          inputType: session.input_type,
-          inputPreview: session.input_preview,
-          insightCount: count || 0,
-          topInsight: topInsight?.text || null,
-        };
-      })
-    );
-
-    return NextResponse.json({ sessions: sessionsWithInsights });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
+// 세션 데이터는 클라이언트 localStorage에서 관리됩니다.
+// 이 API는 텔레그램 봇 등 서버사이드에서 필요할 때를 위한 stub입니다.
+export async function GET() {
+  return NextResponse.json({
+    sessions: [],
+    message: "세션 데이터는 클라이언트에서 관리됩니다.",
+  });
 }

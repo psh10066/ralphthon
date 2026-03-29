@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { anthropic } from "@/lib/anthropic";
+import { groq, VISION_MODEL, TEXT_MODEL } from "@/lib/groq";
 
 const SYSTEM_PROMPT = `당신은 사용자가 가져온 것(사진, 글, 링크, 메모)에서 취향과 패턴을 읽어보려는 시도를 합니다.
 
@@ -17,9 +17,6 @@ const SYSTEM_PROMPT = `당신은 사용자가 가져온 것(사진, 글, 링크,
 - 글/링크: 어떤 내용인지 → 뭐가 걸렸을지 → 질문
 - 메모: 어떤 생각인지 → 왜 지금 이게 떠올랐을지 → 질문
 
-## 6축 (사진일 때만, 보조 정보)
-양감/질감/투명도/촉각/무게/온도. 형용사가 아니라 장면으로 표현.
-
 ## 출력 형식 (반드시 이 JSON만 출력)
 {
   "headline": "인사이트 한 줄 (세리프 표시용, 관찰+분석 합친 핵심)",
@@ -28,14 +25,6 @@ const SYSTEM_PROMPT = `당신은 사용자가 가져온 것(사진, 글, 링크,
   "topics": ["주제 태그 1~3개 (공간, 일, 사람, 취미, 여행, 음식 등)"],
   "styles": ["스타일 태그 1~3개 (고요한, 따뜻한, 묵직한, 빈티지, 미니멀, 느린 등)"],
   "palette": ["#hex1", "#hex2", "#hex3", "#hex4", "#hex5"],
-  "dimensions": {
-    "volume": { "label": "양감", "description": "..." },
-    "texture": { "label": "질감", "description": "..." },
-    "opacity": { "label": "투명도", "description": "..." },
-    "tactility": { "label": "촉각", "description": "..." },
-    "weight": { "label": "무게", "description": "..." },
-    "temperature": { "label": "온도", "description": "..." }
-  },
   "connection": null
 }
 
@@ -58,47 +47,40 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "입력이 필요합니다." }, { status: 400 });
     }
 
-    let userContent: any[] = [];
-
-    if (hasImage) {
-      for (const img of images) {
-        if (!img) continue;
-        const base64Data = img.replace(/^data:image\/\w+;base64,/, "");
-        const mediaType = img.match(/^data:(image\/\w+);base64,/)?.[1] || "image/jpeg";
-        userContent.push({
-          type: "image" as const,
-          source: {
-            type: "base64" as const,
-            media_type: mediaType as "image/jpeg" | "image/png" | "image/gif" | "image/webp",
-            data: base64Data,
-          },
-        });
-      }
-      userContent.push({ type: "text" as const, text: "이 사진에서 취향을 읽어주세요. JSON만 출력하세요." });
-    } else if (hasText) {
-      const typeLabel = inputType === "link" ? "링크" : inputType === "memo" ? "메모" : "글";
-      userContent.push({ type: "text" as const, text: `[${typeLabel} 입력]\n\n${text}\n\n이 내용에서 취향과 패턴을 읽어주세요. JSON만 출력하세요.` });
-    }
-
-    // 과거 축적 컨텍스트 (있으면)
     const previousContext = body.previousInsights
       ? `\n\n## 이전 읽기에서 발견된 것들\n${JSON.stringify(body.previousInsights)}\n\n이전 읽기와 연결되는 부분이 있으면 connection 필드에 한 문장으로 적어주세요.`
       : "";
 
-    const response = await anthropic.messages.create({
-      model: "claude-opus-4-20250514",
-      max_tokens: 2000,
-      temperature: 0.3,
-      system: SYSTEM_PROMPT + previousContext,
-      messages: [{ role: "user", content: userContent }],
-    });
+    let userContent: any[] = [];
 
-    const textBlock = response.content.find((b) => b.type === "text");
-    if (!textBlock || textBlock.type !== "text") {
-      return NextResponse.json({ error: "AI 응답 오류" }, { status: 500 });
+    if (hasImage) {
+      const img = images[0];
+      const base64Url = img.startsWith("data:") ? img : `data:image/jpeg;base64,${img}`;
+      userContent = [
+        { type: "image_url", image_url: { url: base64Url } },
+        { type: "text", text: "이 사진에서 취향을 읽어주세요. JSON만 출력하세요." },
+      ];
+    } else if (hasText) {
+      const typeLabel = inputType === "link" ? "링크" : inputType === "memo" ? "메모" : "글";
+      userContent = [
+        { type: "text", text: `[${typeLabel} 입력]\n\n${text}\n\n이 내용에서 취향과 패턴을 읽어주세요. JSON만 출력하세요.` },
+      ];
     }
 
-    const jsonMatch = textBlock.text.trim().match(/\{[\s\S]*\}/);
+    const model = hasImage ? VISION_MODEL : TEXT_MODEL;
+
+    const response = await groq.chat.completions.create({
+      model,
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT + previousContext },
+        { role: "user", content: userContent },
+      ],
+      temperature: 0.3,
+      max_tokens: 2000,
+    });
+
+    const responseText = response.choices[0]?.message?.content?.trim() || "";
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       return NextResponse.json({ error: "다시 읽어볼게요..." }, { status: 500 });
     }

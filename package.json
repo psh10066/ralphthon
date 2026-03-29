@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
+    "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.49.0",
     "cheerio": "^1.0.0",
     "framer-motion": "^12.0.0",
+    "groq-sdk": "^1.1.2",
     "next": "14.2.29",
     "pg": "^8.13.0",
     "react": "^18.3.1",
