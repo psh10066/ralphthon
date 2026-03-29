@@ -1,5 +1,6 @@
 .DS_Store
 .env
+.env.vercel
 .idea/
 
 # dependencies
@@ -11,3 +12,5 @@ out/
 
 # vercel
 .vercel
+
+.omc
