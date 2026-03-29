@@ -19,7 +19,7 @@ DISCORD_GUILD_ID=        # 봇이 참여한 서버 ID
 DISCORD_CHANNEL_ID=      # 메시지를 보낼 채널 ID
 
 # Anthropic
-ANTHROPIC_API_KEY=       # console.anthropic.com
+ANTHROPIC_API_KEY=       # console.anthropic.com. 모델은 Opus 사용.
 
 # GitHub
 GITHUB_TOKEN=            # github.com/settings/tokens (repo scope)

@@ -125,10 +125,3 @@ create table if not exists {스키마}.messages (
 alter table {스키마}.messages enable row level security;
 create policy allow_all on {스키마}.messages for all using (true) with check (true);
 ```
-
-## Instagram API (자기 계정만, 앱 심사 불필요)
-- 사전 준비: 인스타 계정을 **크리에이터/비즈니스**로 전환 (1분)
-- Meta Developer Portal에서 앱 생성 → Instagram 제품 추가
-- 스코프: `instagram_business_basic`, `instagram_business_content_publish`
-- 가능: 내 프로필/포스트 읽기, 포스트 발행 (100개/일), 스토리, 댓글 관리
-- 불가: 다른 유저 데이터, 해시태그 검색 (앱 심사 필요)
