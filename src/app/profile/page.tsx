@@ -27,8 +27,18 @@ export default function ProfilePage() {
       const data = JSON.parse(localStorage.getItem(key) || "{}");
       (data.result?.topics || []).forEach((t: string) => { topicMap[t] = (topicMap[t] || 0) + 1; });
     });
-    const colors: Record<string, string> = { 공간: "#7A9CB1", 일: "#45525A", 사람: "#CFE2CF", 취미: "#C2C9A6" };
-    setThemes(Object.entries(topicMap).map(([l, c]) => ({ label: l, count: c, color: colors[l] || "#707980" })));
+    const TOPIC_COLOR_MAP: Record<string, string> = {
+      공간: "#7A9CB1", 여행: "#C2C9A6", 일: "#707980", 사람: "#CFE2CF",
+      음식: "#C2C9A6", 취미: "#A5B7C5", 자연: "#CFE2CF", 패션: "#7A9CB1",
+    };
+    const BRAND_COLORS = ["#7A9CB1", "#A5B7C5", "#C2C9A6", "#CFE2CF"];
+    const topicColor = (topic: string) => {
+      if (TOPIC_COLOR_MAP[topic]) return TOPIC_COLOR_MAP[topic];
+      let hash = 0;
+      for (let i = 0; i < topic.length; i++) hash = topic.charCodeAt(i) + ((hash << 5) - hash);
+      return BRAND_COLORS[Math.abs(hash) % BRAND_COLORS.length];
+    };
+    setThemes(Object.entries(topicMap).map(([l, c]) => ({ label: l, count: c, color: topicColor(l) })));
   }, []);
 
   const dimensionKeys = ["volume", "texture", "opacity", "tactility", "weight", "temperature"];

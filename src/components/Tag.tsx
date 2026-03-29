@@ -19,11 +19,30 @@ const styleColors: Record<string, string> = {
   가벼운: "bg-[#EFEEE9] text-[#707980] border-[#707980]/15",
 };
 
-const fallback = "bg-[#040000]/5 text-[#707980] border-[#040000]/10";
+const topicFallbacks = [
+  "bg-[#7A9CB1]/15 text-[#45525A] border-[#7A9CB1]/25",
+  "bg-[#A5B7C5]/15 text-[#45525A] border-[#A5B7C5]/25",
+  "bg-[#C2C9A6]/15 text-[#45525A] border-[#C2C9A6]/25",
+  "bg-[#CFE2CF]/15 text-[#45525A] border-[#CFE2CF]/25",
+];
+
+const styleFallbacks = [
+  "bg-[#7A9CB1]/12 text-[#707980] border-[#7A9CB1]/20",
+  "bg-[#A5B7C5]/12 text-[#707980] border-[#A5B7C5]/20",
+  "bg-[#C2C9A6]/12 text-[#707980] border-[#C2C9A6]/20",
+  "bg-[#CFE2CF]/12 text-[#707980] border-[#CFE2CF]/20",
+];
+
+function hashColor(label: string, type: "topic" | "style"): string {
+  let hash = 0;
+  for (let i = 0; i < label.length; i++) hash = label.charCodeAt(i) + ((hash << 5) - hash);
+  const pool = type === "topic" ? topicFallbacks : styleFallbacks;
+  return pool[Math.abs(hash) % pool.length];
+}
 
 export default function Tag({ label, type = "topic" }: { label: string; type?: "topic" | "style" }) {
   const colors = type === "topic" ? topicColors : styleColors;
-  const cls = colors[label] || fallback;
+  const cls = colors[label] || hashColor(label, type);
   return (
     <span className={`inline-block text-[11px] border rounded-full px-2.5 py-0.5 ${cls} ${type === "style" ? "italic" : ""}`}>
       {label}
