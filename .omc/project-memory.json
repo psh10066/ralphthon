@@ -1,0 +1,335 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1774741967004,
+  "projectRoot": "/Users/gowid/Workspace/psh10066/Projects/ralphthon",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {},
+  "hotPaths": [
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 19,
+      "lastAccessed": 1774749428661,
+      "type": "file"
+    },
+    {
+      "path": "docs/setup.md",
+      "accessCount": 6,
+      "lastAccessed": 1774749431241,
+      "type": "file"
+    },
+    {
+      "path": "docs/api-reference.md",
+      "accessCount": 6,
+      "lastAccessed": 1774749431712,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 3,
+      "lastAccessed": 1774745686213,
+      "type": "directory"
+    },
+    {
+      "path": "docs/deeplinks.md",
+      "accessCount": 3,
+      "lastAccessed": 1774749413841,
+      "type": "file"
+    },
+    {
+      "path": ".env",
+      "accessCount": 3,
+      "lastAccessed": 1774749420225,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/user-scenario-funnel.md",
+      "accessCount": 3,
+      "lastAccessed": 1774752874991,
+      "type": "file"
+    },
+    {
+      "path": "src/app/components/VoiceButton.tsx",
+      "accessCount": 2,
+      "lastAccessed": 1774744687514,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/product.md",
+      "accessCount": 2,
+      "lastAccessed": 1774749493791,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/data-schema.md",
+      "accessCount": 2,
+      "lastAccessed": 1774749495141,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/api.md",
+      "accessCount": 2,
+      "lastAccessed": 1774749495560,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/screens.md",
+      "accessCount": 2,
+      "lastAccessed": 1774749496010,
+      "type": "file"
+    },
+    {
+      "path": "docs/engine/essence.md",
+      "accessCount": 2,
+      "lastAccessed": 1774749496521,
+      "type": "file"
+    },
+    {
+      "path": "docs/engine/dialogue.md",
+      "accessCount": 2,
+      "lastAccessed": 1774749496978,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/principles.md",
+      "accessCount": 2,
+      "lastAccessed": 1774752545257,
+      "type": "file"
+    },
+    {
+      "path": ".claude/skills/qa-gate.md",
+      "accessCount": 1,
+      "lastAccessed": 1774744319771,
+      "type": "file"
+    },
+    {
+      "path": "package.json",
+      "accessCount": 1,
+      "lastAccessed": 1774744553441,
+      "type": "file"
+    },
+    {
+      "path": "tsconfig.json",
+      "accessCount": 1,
+      "lastAccessed": 1774744555621,
+      "type": "file"
+    },
+    {
+      "path": "next.config.mjs",
+      "accessCount": 1,
+      "lastAccessed": 1774744556461,
+      "type": "file"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "accessCount": 1,
+      "lastAccessed": 1774744557355,
+      "type": "file"
+    },
+    {
+      "path": ".npmrc",
+      "accessCount": 1,
+      "lastAccessed": 1774744557841,
+      "type": "file"
+    },
+    {
+      "path": "src/app/globals.css",
+      "accessCount": 1,
+      "lastAccessed": 1774744569455,
+      "type": "file"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774744571684,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/supabase.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744573913,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/anthropic.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744582011,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/discord.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744583790,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/telegram.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744585630,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/chat/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744594700,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/db/init/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744603930,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/notifications/discord/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744606452,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/notifications/telegram/route.ts",
+      "accessCount": 1,
+      "lastAccessed": 1774744608472,
+      "type": "file"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774744633770,
+      "type": "file"
+    },
+    {
+      "path": "src/app/components/ChatArea.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774744645411,
+      "type": "file"
+    },
+    {
+      "path": "src/app/components/GiftCards.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1774744654363,
+      "type": "file"
+    },
+    {
+      "path": "docs/planning/ralphton-prd-v3.md",
+      "accessCount": 1,
+      "lastAccessed": 1774745665451,
+      "type": "file"
+    },
+    {
+      "path": "docs/README.md",
+      "accessCount": 1,
+      "lastAccessed": 1774749431037,
+      "type": "file"
+    },
+    {
+      "path": "docs/engine/accumulation.md",
+      "accessCount": 1,
+      "lastAccessed": 1774749497271,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/funnel.md",
+      "accessCount": 1,
+      "lastAccessed": 1774749505323,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/eval.md",
+      "accessCount": 1,
+      "lastAccessed": 1774749505419,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/components.md",
+      "accessCount": 1,
+      "lastAccessed": 1774749505986,
+      "type": "file"
+    },
+    {
+      "path": "docs/spec/error-handling.md",
+      "accessCount": 1,
+      "lastAccessed": 1774749506449,
+      "type": "file"
+    },
+    {
+      "path": "docs/context/decisions.md",
+      "accessCount": 1,
+      "lastAccessed": 1774749506708,
+      "type": "file"
+    },
+    {
+      "path": ".claude/skills/user-story-writing.md",
+      "accessCount": 1,
+      "lastAccessed": 1774751550009,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/77a01723d73d8897de0a0589bf91e2be.jpg",
+      "accessCount": 1,
+      "lastAccessed": 1774753123190,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/1862d2fcf3d5dce9b0fe00ab856469dc.jpg",
+      "accessCount": 1,
+      "lastAccessed": 1774753124128,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/d3dffe160a20987ff071749ce989b281.jpg",
+      "accessCount": 1,
+      "lastAccessed": 1774753124562,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/ac560281479ce60c56974a7c1ce9b4e4.jpg",
+      "accessCount": 1,
+      "lastAccessed": 1774753125004,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/d5a4917568a53b27dac9cf186de63515.jpg",
+      "accessCount": 1,
+      "lastAccessed": 1774753125428,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/white-fabric-texture-background.jpg",
+      "accessCount": 1,
+      "lastAccessed": 1774753126839,
+      "type": "file"
+    },
+    {
+      "path": "docs/design/white-fabric-texture-background (1).jpg",
+      "accessCount": 1,
+      "lastAccessed": 1774753127080,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}
