@@ -20,9 +20,15 @@ export default function Landing() {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const file = files[0];
-    const resized = await resizeImage(file);
-    localStorage.setItem("droppi_drop", JSON.stringify({ type: "image", content: resized }));
+    const resizedImages = await Promise.all(
+      Array.from(files).map((file) => resizeImage(file))
+    );
+
+    localStorage.setItem("droppi_drop", JSON.stringify({
+      type: "image",
+      content: resizedImages[0],
+      images: resizedImages,
+    }));
     router.push("/result");
   };
 

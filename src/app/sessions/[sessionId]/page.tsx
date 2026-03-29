@@ -34,7 +34,7 @@ export default function SessionDetailPage() {
           <button onClick={() => router.back()} className="text-[14px] text-[#707980]">← 뒤로</button>
         </div>
       </header>
-      <div className="max-w-[640px] mx-auto px-5 pt-4 pb-12">
+      <div className="max-w-[640px] mx-auto px-5 pt-4 pb-24">
         {session?.result?.insight && (
           <h1 className="text-[20px] leading-[1.7] mb-4" style={{ fontFamily: "var(--font-serif), serif" }}>
             &ldquo;{session.result.insight}&rdquo;
@@ -82,6 +82,17 @@ export default function SessionDetailPage() {
             </div>
           </div>
         )}
+
+        <div className="fixed bottom-0 left-0 right-0 bg-[#EFEEE9]/90 backdrop-blur-sm border-t border-[#040000]/8 px-5 py-4 z-40">
+          <div className="max-w-[640px] mx-auto">
+            <button
+              onClick={() => router.push(`/chat?sessionId=${sessionId}`)}
+              className="w-full py-3 rounded-full bg-[#040000] text-white text-[14px] hover:bg-[#45525A] transition-colors"
+            >
+              이어서 대화하기
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
