@@ -49,6 +49,12 @@
       "type": "file"
     },
     {
+      "path": "src/app/api/chat/route.ts",
+      "accessCount": 4,
+      "lastAccessed": 1774755283333,
+      "type": "file"
+    },
+    {
       "path": "",
       "accessCount": 3,
       "lastAccessed": 1774745686213,
@@ -70,6 +76,42 @@
       "path": "docs/spec/user-scenario-funnel.md",
       "accessCount": 3,
       "lastAccessed": 1774752874991,
+      "type": "file"
+    },
+    {
+      "path": "src/app/api/db/init/route.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774754228840,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/supabase.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774755288749,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/anthropic.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774755289035,
+      "type": "file"
+    },
+    {
+      "path": "src/lib/telegram.ts",
+      "accessCount": 3,
+      "lastAccessed": 1774755289417,
+      "type": "file"
+    },
+    {
+      "path": "src/app/page.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1774755294004,
+      "type": "file"
+    },
+    {
+      "path": "src/app/layout.tsx",
+      "accessCount": 3,
+      "lastAccessed": 1774755300964,
       "type": "file"
     },
     {
@@ -121,87 +163,51 @@
       "type": "file"
     },
     {
+      "path": "package.json",
+      "accessCount": 2,
+      "lastAccessed": 1774754061616,
+      "type": "file"
+    },
+    {
+      "path": "tsconfig.json",
+      "accessCount": 2,
+      "lastAccessed": 1774754063770,
+      "type": "file"
+    },
+    {
+      "path": "next.config.mjs",
+      "accessCount": 2,
+      "lastAccessed": 1774754065179,
+      "type": "file"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "accessCount": 2,
+      "lastAccessed": 1774754070524,
+      "type": "file"
+    },
+    {
+      "path": ".npmrc",
+      "accessCount": 2,
+      "lastAccessed": 1774754071071,
+      "type": "file"
+    },
+    {
+      "path": "src/app/globals.css",
+      "accessCount": 2,
+      "lastAccessed": 1774754082456,
+      "type": "file"
+    },
+    {
       "path": ".claude/skills/qa-gate.md",
       "accessCount": 1,
       "lastAccessed": 1774744319771,
       "type": "file"
     },
     {
-      "path": "package.json",
-      "accessCount": 1,
-      "lastAccessed": 1774744553441,
-      "type": "file"
-    },
-    {
-      "path": "tsconfig.json",
-      "accessCount": 1,
-      "lastAccessed": 1774744555621,
-      "type": "file"
-    },
-    {
-      "path": "next.config.mjs",
-      "accessCount": 1,
-      "lastAccessed": 1774744556461,
-      "type": "file"
-    },
-    {
-      "path": "postcss.config.mjs",
-      "accessCount": 1,
-      "lastAccessed": 1774744557355,
-      "type": "file"
-    },
-    {
-      "path": ".npmrc",
-      "accessCount": 1,
-      "lastAccessed": 1774744557841,
-      "type": "file"
-    },
-    {
-      "path": "src/app/globals.css",
-      "accessCount": 1,
-      "lastAccessed": 1774744569455,
-      "type": "file"
-    },
-    {
-      "path": "src/app/layout.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1774744571684,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/supabase.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774744573913,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/anthropic.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774744582011,
-      "type": "file"
-    },
-    {
       "path": "src/lib/discord.ts",
       "accessCount": 1,
       "lastAccessed": 1774744583790,
-      "type": "file"
-    },
-    {
-      "path": "src/lib/telegram.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774744585630,
-      "type": "file"
-    },
-    {
-      "path": "src/app/api/chat/route.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774744594700,
-      "type": "file"
-    },
-    {
-      "path": "src/app/api/db/init/route.ts",
-      "accessCount": 1,
-      "lastAccessed": 1774744603930,
       "type": "file"
     },
     {
@@ -214,12 +220,6 @@
       "path": "src/app/api/notifications/telegram/route.ts",
       "accessCount": 1,
       "lastAccessed": 1774744608472,
-      "type": "file"
-    },
-    {
-      "path": "src/app/page.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1774744633770,
       "type": "file"
     },
     {

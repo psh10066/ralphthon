@@ -1,0 +1,119 @@
+{
+  "title": "Droppi - AI 취향 에센스 서비스",
+  "description": "사진에서 취향 에센스를 읽고 메타대화로 자기 이해를 깊게 만드는 서비스. 웹앱 + 텔레그램 봇.",
+  "specs": [
+    ".omc/specs/deep-interview-ralphthon-impl.md",
+    ".omc/specs/user-stories.md",
+    ".omc/specs/task-list.md"
+  ],
+  "stories": [
+    {
+      "id": "US-P1",
+      "title": "Phase 1: 프로젝트 뼈대",
+      "priority": 1,
+      "passes": true,
+      "acceptanceCriteria": [
+        "npm run dev 실행 시 Next.js 14 앱이 localhost:3000에서 동작",
+        "/, /home, /chat, /chat/test-id, /sessions, /profile 6개 라우트 모두 200 응답",
+        "Tailwind CSS v4 + Pretendard + Noto Serif KR 폰트 로드",
+        "미색 배경(warm off-white) + 블랙 구조선 CSS 변수 적용",
+        "하단 탭 네비게이션(홈/세션/프로필) 동작",
+        "모바일 375px에서 가로 스크롤 없이 렌더링",
+        "Supabase 테이블 6개(users, essence_profiles, sessions, messages, insights, topography_clusters) 생성 + RLS 적용",
+        "src/lib/supabase.ts, anthropic.ts, telegram.ts import 가능"
+      ]
+    },
+    {
+      "id": "US-P2",
+      "title": "Phase 2: 에센스 엔진",
+      "priority": 2,
+      "passes": true,
+      "acceptanceCriteria": [
+        "POST /api/analyze에 base64 이미지 1장 전송 시 EssenceProfile JSON 반환",
+        "POST /api/analyze에 base64 이미지 5장 전송 시 교집합 추출된 EssenceProfile 반환",
+        "응답에 headline(15~20자), dimensions(6축), palette(5색), observation, firstQuestion 포함",
+        "firstQuestion이 가설 질문 형태 ('~아닌가요?' 등)",
+        "essence_profiles 테이블에 raw_images(base64) 포함하여 저장",
+        "같은 사진 3회 분석 시 6축 방향이 동일 (일관성)"
+      ]
+    },
+    {
+      "id": "US-P3",
+      "title": "Phase 3: 대화 엔진",
+      "priority": 3,
+      "passes": true,
+      "acceptanceCriteria": [
+        "POST /api/chat에 type:'image' 전송 시 탐색 질문 반환 (요약/진단 아님)",
+        "POST /api/chat에 type:'text' 전송 시 '왜 지금 떠올랐어?' 계열 질문",
+        "POST /api/chat에 type:'link' + 접근가능 URL 시 본문 스크래핑 후 질문",
+        "링크 스크래핑 실패 시 AI 리서치 폴백, 그래도 실패 시 붙여넣기 안내",
+        "type:'memo' 전송 시 적절한 메타대화 질문",
+        "인사이트 감지 시 type:'insight' + insight 객체 반환",
+        "연속 2회 입력 시 서로 다른 session_id 생성",
+        "대화 히스토리가 messages 테이블에 저장"
+      ]
+    },
+    {
+      "id": "US-P4",
+      "title": "Phase 4: 축적 엔진",
+      "priority": 4,
+      "passes": true,
+      "acceptanceCriteria": [
+        "인사이트 insert 후 Claude API로 클러스터 재계산 동작",
+        "GET /api/profile 시 현재 에센스 + 인사이트 목록 + 클러스터 + 반복 키워드 반환",
+        "GET /api/sessions 시 세션 목록(날짜, inputType, insightCount) 반환",
+        "GET /api/sessions/:id 시 대화 전문 + 인사이트 + 패턴 반환",
+        "사진 추가 시 에센스 자동 재분석 (새 essence_profiles row 생성)",
+        "주간 리포트 API 호출 시 리포트 텍스트 생성"
+      ]
+    },
+    {
+      "id": "US-P5",
+      "title": "Phase 5: 화면 조립 (Droppi 디자인)",
+      "priority": 5,
+      "passes": true,
+      "acceptanceCriteria": [
+        "랜딩(/): 미색 배경 + 'Droppi' + '사진을 드롭해 보세요' + drop CTA",
+        "업로드: 2열 그리드, 1장부터 CTA 활성, X 교체, 5장 제한, 카운터",
+        "로딩: 4단계 텍스트 애니메이션 (보고/읽고/찾고/거의 다)",
+        "WOW: 에센스 한줄 + 6축 바 + 팔레트 5색 + 가설 질문 + 반응 버튼 3개(맞아요/좀 다른데/잘 모르겠어요) + 분기 동작",
+        "홈(/home): 에센스 상단 + 입력(drop버튼, 마이크) + 최근 발견 + 클러스터",
+        "대화(/chat): 대화 버블 + 인사이트 블록(저장할까요?) + 입력",
+        "세션 상세(/chat/:id): 읽기 전용 대화 + 발견 + 패턴",
+        "세션 로그(/sessions): 날짜별 목록 + 발견 하이라이트",
+        "프로필(/profile): 에센스 + 변화이력 + 클러스터 리스트 + 키워드 + 리포트 버튼",
+        "Drop 모션: 물방울 떨어져 스며듬 (Framer Motion)",
+        "Voice Input: /home + /chat 마이크 버튼 (Web Speech API STT)",
+        "Lazy Auth: 저장 → 텔레그램 딥링크 + 연결 대기 상태 UI",
+        "빈 상태: 에센스 미완 안내, 인사이트 0개 안내"
+      ]
+    },
+    {
+      "id": "US-P6",
+      "title": "Phase 6: 텔레그램 봇",
+      "priority": 6,
+      "passes": true,
+      "acceptanceCriteria": [
+        "POST /api/telegram/webhook이 텔레그램 메시지 수신",
+        "첫 진입 사용자에게 '사진을 보내주세요' 온보딩 안내",
+        "사진 전송 시 /api/analyze 호출 → 에센스 텍스트 응답",
+        "텍스트/링크 전송 시 /api/chat 호출 → 질문 응답",
+        "인사이트 감지 시 '웹에서 확인' + URL 안내",
+        "/start WEB_{sessionId} 시 계정 연결 + localStorage 마이그레이션 트리거"
+      ]
+    },
+    {
+      "id": "US-P7",
+      "title": "Phase 7: 빌드 + QA",
+      "priority": 7,
+      "passes": true,
+      "acceptanceCriteria": [
+        "npm run build 성공 (0 에러)",
+        "Playwright MCP로 로컬 전체 QA (52개 항목) — 각 페이지 스크린샷 + 콘솔 0 에러",
+        "Vercel 배포 성공 — 배포 URL 접근 가능",
+        "Playwright MCP로 배포 URL 전체 QA — 스크린샷 + 콘솔 0 에러",
+        "Playwright MCP로 모바일 뷰포트(390px) QA — 전체 페이지 깨지지 않음"
+      ]
+    }
+  ]
+}

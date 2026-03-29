@@ -29,10 +29,9 @@ create table essence_profiles (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references users(id) on delete cascade,
   headline text not null,              -- "손 닿는 곳의 아늑함을 모으는 사람"
-  dimensions jsonb not null,           -- { volume, texture, opacity, tactility, weight, temperature }
   palette text[] not null,             -- ["#C4A882", "#D4A5A5", ...]
-  observation text,                     -- 관찰 사실 ("사진이 전부 가까이에 있는 것들이거든요")
-  first_question text,                 -- 열린 호기심 질문 ("뭐가 끌렸어요?")
+  topic_tags text[],                   -- 가장 많이 나온 주제 태그 top 5
+  style_tags text[],                   -- 가장 많이 나온 스타일 태그 top 5
   created_at timestamptz default now()
 );
 ```
@@ -85,19 +84,62 @@ create table insights (
 );
 ```
 
-### topography_clusters
+### theme_clusters
 
-축적 지형도 클러스터.
+주제 클러스터.
 
 ```sql
-create table topography_clusters (
+create table theme_clusters (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references users(id) on delete cascade,
-  label text not null,                 -- "닫는 것"
-  height integer default 0,           -- 인사이트 개수 = 높이
-  insights text[],                     -- 인사이트 텍스트 배열
-  keywords text[],                     -- ["#완성", "#마무리"]
+  label text not null,                 -- "안전한 구석"
+  reading_ids uuid[],                  -- 이 주제에 속한 읽기 ID들
+  keywords text[],                     -- ["#안전", "#구석"]
+  reading_count integer default 0,     -- 이 주제에 속한 읽기 수
+  conversation_count integer default 0,-- 이 주제에서 대화로 이어진 수
+  ai_summary text,                     -- "가까이 있는 것들에 반복적으로 주목하는 패턴"
+  recent_activity timestamptz,         -- 마지막 읽기/대화 시각
+  created_at timestamptz default now(),
   updated_at timestamptz default now()
+);
+```
+
+### readings
+
+읽기 결과 단위.
+
+```sql
+create table readings (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references users(id) on delete cascade,
+  session_id uuid references sessions(id),  -- 대화가 있으면 연결
+  input_type text not null check (input_type in ('image', 'text', 'link', 'memo')),
+  input_preview text,                  -- "카페 사진", "아티클 제목"
+  insight text,                        -- "등 뒤가 막혀있어야 안심이 되는 거 아닐까"
+  observation text,                    -- 관찰 사실
+  tags text[],                         -- ["#안전한구석", "#관찰자"]
+  topic_tags text[],                   -- 주제 태그 (예: ["공간", "여행"])
+  style_tags text[],                   -- 스타일 태그 (예: ["따뜻한", "고요한"])
+  had_conversation boolean default false,
+  created_at timestamptz default now()
+);
+```
+
+### monthly_flows
+
+월별 흐름 분석 결과.
+
+```sql
+create table monthly_flows (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references users(id) on delete cascade,
+  period text not null,                -- "2026-03"
+  topic_distribution jsonb not null,   -- [{"tag": "여행", "count": 5}, ...]
+  style_distribution jsonb not null,   -- [{"tag": "따뜻한", "count": 4}, ...]
+  dominant_topic text,
+  dominant_style text,
+  previous_comparison text,
+  created_at timestamptz default now()
 );
 ```
 
@@ -118,7 +160,7 @@ create policy "Users can insert own insights"
   on insights for insert with check (user_id = auth.uid());
 ```
 
-동일한 패턴을 `essence_profiles`, `sessions`, `messages`, `topography_clusters`에 적용.
+동일한 패턴을 `essence_profiles`, `sessions`, `messages`, `theme_clusters`, `readings`에 적용.
 
 ---
 
@@ -152,26 +194,13 @@ const { error } = await supabase
 ## TypeScript 인터페이스 (클라이언트용)
 
 ```typescript
-interface Dimension {
-  label: string;        // "양감", "질감", "투명도", "촉각", "무게", "온도"
-  description: string;  // "채워진 둥근 볼륨"
-}
-
 interface EssenceProfile {
   id: string;
   user_id: string;
   headline: string;
-  dimensions: {
-    volume: Dimension;
-    texture: Dimension;
-    opacity: Dimension;
-    tactility: Dimension;
-    weight: Dimension;
-    temperature: Dimension;
-  };
   palette: string[];
-  observation: string;
-  first_question: string;
+  topTopics: string[];   // 가장 많이 나온 주제 태그 top 5
+  topStyles: string[];   // 가장 많이 나온 스타일 태그 top 5
   created_at: string;
 }
 
@@ -205,13 +234,44 @@ interface Insight {
   created_at: string;
 }
 
-interface TopographyCluster {
+interface ThemeCluster {
   id: string;
   user_id: string;
   label: string;
-  height: number;
-  insights: string[];
+  reading_ids: string[];
   keywords: string[];
+  reading_count: number;
+  conversation_count: number;
+  ai_summary: string;
+  recent_activity: string;
+  created_at: string;
   updated_at: string;
+}
+
+interface Reading {
+  id: string;
+  user_id: string;
+  session_id?: string;
+  input_type: "image" | "text" | "link" | "memo";
+  input_preview: string;
+  insight: string;
+  observation: string;
+  tags: string[];
+  topic_tags: string[];   // 주제 태그 (예: ["공간", "여행"])
+  style_tags: string[];   // 스타일 태그 (예: ["따뜻한", "고요한"])
+  had_conversation: boolean;
+  created_at: string;
+}
+
+interface MonthlyFlow {
+  id: string;
+  user_id: string;
+  period: string;          // "2026-03"
+  topic_distribution: { tag: string; count: number }[];
+  style_distribution: { tag: string; count: number }[];
+  dominant_topic: string | null;
+  dominant_style: string | null;
+  previous_comparison: string | null;
+  created_at: string;
 }
 ```

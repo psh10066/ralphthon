@@ -18,7 +18,7 @@ Phase 3: 대화 엔진
   /api/chat 구현 → 프롬프트 삽입 → eval 실행 → 통과까지 반복
       ↓
 Phase 4: 축적 엔진
-  /api/profile, /api/topography → eval 실행
+  /api/profile, /api/themes → eval 실행
       ↓
 Phase 5: 화면 조립
   랜딩 → 홈 → 대화 UI → 프로필 → 세션 로그
@@ -104,7 +104,7 @@ eval 1-1 (골든 셋):
 
 eval 1-2 (일관성):
   FAIL → 3회 중 방향이 다른 결과 확인
-       → 프롬프트에 "6축의 방향(따뜻↔서늘 등)은 일관되게" 규칙 강화
+       → 프롬프트에 "topicTags/styleTags 방향(따뜻↔서늘 등)은 일관되게" 규칙 강화
        → temperature 파라미터 낮추기 (0.3 → 0.1)
        → 재실행
 
@@ -154,8 +154,8 @@ eval 2-3 (에센스 연결):
 |------|----------|
 | 인사이트 저장 | Supabase insights 테이블에 저장 |
 | 패턴 감지 | 3개+ 인사이트 → 패턴 자동 감지 |
-| 지형도 데이터 생성 | `GET /api/topography` 동작 |
-| 세션 관리 | `GET /api/sessions` 동작 |
+| 주제 클러스터 생성 | `GET /api/themes` 동작 |
+| 세션 관리 | `GET /api/sessions` 동작, `GET /api/themes` 동작 |
 | **eval 실행** | `spec/eval.md` 섹션 3 전체 |
 
 **Eval-Fix 루프 상세**:
@@ -165,7 +165,7 @@ eval 3-1 (패턴 감지):
   각각 별개로 처리됨 → 클러스터링 프롬프트에 "의미가 같으면 하나로" 강화
   키워드만 나열 → "사용자의 언어로 라벨링" 규칙 강화
 
-eval 3-2 (지형도):
+eval 3-2 (주제 클러스터):
   1개짜리 클러스터 → "최소 3개 인사이트" 규칙 확인
   모든 클러스터가 연결 → 연결 강도 threshold 조정
 ```
@@ -176,14 +176,32 @@ eval 3-2 (지형도):
 
 | 작업 | 참조 |
 |------|------|
-| 랜딩 (퍼널 3섹션 + 업로드 + 로딩 + 에센스) | `spec/funnel.md`, `spec/screens.md` |
-| 홈 | `spec/screens.md` 홈 섹션 |
+| 글로벌 레이아웃 (헤더, 하단탭, 반응형) | `design/components.md` 헤더, 하단 탭 |
+| 랜딩 (풀스크린, 블랙 pill 버튼, 예시 카드) | `spec/screens.md`, `spec/funnel.md` |
+| 읽기 결과 (인사이트 + 관찰 + 태그 + 자유입력 + 스킵) | `spec/screens.md` |
+| 홈 (drop 입력 + 최근 읽기 + 주제 모음 칩) | `spec/screens.md` |
+| 세션 (매거진 그리드 전체 목록) | `spec/screens.md`, `design/components.md` 세션 카드 |
 | 대화 UI | `design/components.md` 대화 버블, 인사이트 카드 |
-| 프로필 + 지형도 | `design/components.md` 지형도, 타임라인 |
-| 세션 로그 | `spec/screens.md` 세션 로그 |
+| 주제 (폴더 카드 스택) | `spec/screens.md`, `design/components.md` 주제 폴더 카드 |
+| 프로필 (에센스 + 흐름 + 발견 + 태그) | `spec/screens.md` |
 | 공유 이미지 생성 | `spec/api.md` POST /api/share |
 
 **eval**: `spec/eval.md` 섹션 4 (수동 UI/UX 체크리스트)
+
+### 디자인 참조
+
+<HARD-RULE>
+디자인 톤은 레퍼런스 이미지가 기준이다. 목업을 그대로 따르지 않는다.
+
+1. **레퍼런스 이미지** (`docs/design/references/*.png`) — 톤, 여백, 컬러 사용량의 기준. 구현 전에 반드시 이미지를 열어보고 느낌을 맞춘다
+2. **목업** (`mockup/`) — 구조와 흐름의 참고. `npm run dev`로 확인 가능. 디자인 퀄리티의 기준이 아님
+3. **디자인 원칙** (`design/principles.md`) — 레퍼런스에서 읽어야 할 포인트 정리
+
+목업의 컬러, 여백, 폰트 크기를 그대로 복사하면 안 된다.
+레퍼런스 이미지의 절제된 느낌 — 거의 무색, 여백이 콘텐츠보다 많음, 텍스트 중심 — 을 따른다.
+</HARD-RULE>
+
+목업 페이지: `/` (랜딩), `/result` (읽기 결과), `/home` (홈), `/sessions` (세션), `/themes` (주제), `/profile` (프로필)
 
 ### Phase 6: 텔레그램 봇
 
