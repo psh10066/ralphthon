@@ -12,6 +12,8 @@ const tabs = [
 export default function BottomNav() {
   const pathname = usePathname();
 
+  if (pathname.startsWith("/chat") || pathname.startsWith("/result") || pathname === "/") return null;
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-[#EFEEE9] border-t border-[#040000]/10" style={{ zIndex: 9999 }}>
       <div className="max-w-[1200px] mx-auto flex">
