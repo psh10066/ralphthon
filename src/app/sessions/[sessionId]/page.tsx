@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Tag from "@/components/Tag";
+import { getAIHeaders } from "@/lib/api-headers";
 
 interface Message {
   role: "user" | "assistant";
@@ -140,7 +141,7 @@ export default function SessionDetailPage() {
                   const essence = localStorage.getItem("droppi_essence");
                   const res = await fetch("/api/chat", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: getAIHeaders(),
                     body: JSON.stringify({
                       input: { type: "text", content: "이 대화를 깊이 있게 정리해줘. 단순 요약이 아니라, 이 대화에서 드러난 패턴, 핵심 발견, 그리고 이 사람에 대해 새롭게 알게 된 점을 정리해줘." },
                       essence: essence ? JSON.parse(essence) : null,

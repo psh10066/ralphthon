@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { groq, TEXT_MODEL } from "@/lib/groq";
+import { getAIConfig, chatCompletion, textOnlyCompletion } from "@/lib/ai";
 import * as cheerio from "cheerio";
 
 const DIALOGUE_SYSTEM_PROMPT = `당신은 사용자가 "왜 이게 좋은지" 스스로 발견하도록 돕는 대화 파트너입니다.
@@ -72,6 +72,7 @@ async function scrapeUrl(url: string): Promise<string | null> {
 
 export async function POST(request: NextRequest) {
   try {
+    const config = getAIConfig(request);
     const body = await request.json();
     const { input, essence, history, insightLog } = body;
 
@@ -93,12 +94,12 @@ export async function POST(request: NextRequest) {
         processedContent = `[링크: ${url}]\n\n${scraped}`;
       } else {
         try {
-          const aiResult = await groq.chat.completions.create({
-            model: TEXT_MODEL,
-            messages: [{ role: "user", content: `이 URL의 글 내용을 아는 대로 요약해줘: ${url}. 모르면 "모름"이라고만 답해.` }],
-            max_tokens: 500,
+          const researchText = await textOnlyCompletion({
+            config,
+            system: "",
+            userMessage: `이 URL의 글 내용을 아는 대로 요약해줘: ${url}. 모르면 "모름"이라고만 답해.`,
+            maxTokens: 500,
           });
-          const researchText = aiResult.choices[0]?.message?.content || "모름";
           if (!researchText.includes("모름")) {
             processedContent = `[링크: ${url}]\n\n[AI 리서치 결과]\n${researchText}`;
           } else {
@@ -124,20 +125,19 @@ export async function POST(request: NextRequest) {
     const turnCount = historyMessages.filter((m: any) => m.role === "user").length + 1;
     const turnContext = `\n\n## 현재 상태\n현재 ${turnCount}턴째입니다. 턴별 전략을 따르세요.`;
 
-    const messages: any[] = [
-      { role: "system", content: DIALOGUE_SYSTEM_PROMPT + essenceContext + insightContext + turnContext },
+    const chatMessages = [
       ...historyMessages,
-      { role: "user", content: `[입력 타입: ${input.type}]\n\n${processedContent}` },
+      { role: "user" as const, content: `[입력 타입: ${input.type}]\n\n${processedContent}` },
     ];
 
-    const response = await groq.chat.completions.create({
-      model: TEXT_MODEL,
-      messages,
+    const resultText = await chatCompletion({
+      config,
+      system: DIALOGUE_SYSTEM_PROMPT + essenceContext + insightContext + turnContext,
+      messages: chatMessages,
       temperature: 0.7,
-      max_tokens: 1000,
+      maxTokens: 1000,
     });
 
-    const resultText = response.choices[0]?.message?.content?.trim() || "";
     const jsonMatch = resultText.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       try {

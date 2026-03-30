@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { getAIHeaders } from "@/lib/api-headers";
 
 interface Message {
   role: "user" | "assistant";
@@ -59,7 +60,7 @@ function ChatContent() {
       const insights = JSON.parse(localStorage.getItem("droppi_insights") || "[]");
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAIHeaders(),
         body: JSON.stringify({
           input: { type: "text", content: currentMessages[currentMessages.length - 1].content },
           essence: essence ? JSON.parse(essence) : null,
@@ -112,7 +113,7 @@ function ChatContent() {
       const insights = JSON.parse(localStorage.getItem("droppi_insights") || "[]");
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAIHeaders(),
         body: JSON.stringify({
           input: { type: "image", content: base64 },
           essence: essence ? JSON.parse(essence) : null,
@@ -150,7 +151,7 @@ function ChatContent() {
       const essence = localStorage.getItem("droppi_essence");
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getAIHeaders(),
         body: JSON.stringify({
           input: { type: "text", content: "이 대화를 정리해줘. 오늘 대화에서 나온 핵심 발견, 패턴, 인사이트를 간결하게 정리해줘." },
           essence: essence ? JSON.parse(essence) : null,

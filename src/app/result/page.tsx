@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Tag from "@/components/Tag";
+import { getAIHeaders } from "@/lib/api-headers";
 
 interface ReadingResult {
   insight: string;
@@ -49,7 +50,7 @@ export default function ResultPage() {
 
         const res = await fetch("/api/analyze", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: getAIHeaders(),
           body: JSON.stringify(body),
         });
         const data = await res.json();
